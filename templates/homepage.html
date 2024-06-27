@@ -51,7 +51,7 @@
                         <button class="action-button comment-button">Comment</button>
                     </a>
                     {% endif %}
-                    {% if current_user.id == post['user_id'] %}
+                    {% if current_user.id == post['user_id'] or current_user.role == "admin" %}
                     <a href="/edit_post/{{ post['id'] }}">
                         <button class="action-button redact-button">Edit Post</button>
                     </a>
