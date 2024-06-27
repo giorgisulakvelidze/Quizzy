@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Register</h2>
+{% for errors in form.errors.values() %}
+<div class="alert alert-danger">
+    {{ errors }}
+</div>
+{% endfor %}
+<form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <div class="mb-3">
+        {{ form.gmail(class="form-control", placeholder="gmail") }}
+    </div>
+    <div class="mb-3">
+        {{ form.username(class="form-control", placeholder="username") }}
+    </div>
+    <div class="mb-3">
+        {{ form.password(class="form-control", placeholder="password") }}
+    </div>
+    <div class="mb-3">
+        {{ form.rep_password(class="form-control", placeholder="confirm password") }}
+    </div>
+    <div class="mb-3 form-check">
+        {{ form.gender() }}
+    </div>
+    <div class="mb-3">
+        {{ form.age(class="form-control", placeholder="user age") }}
+    </div>
+    <div class="mb-3 d-grid gap-2">
+        {{ form.register(class="btn btn-primary") }}
+    </div>
+    <div class="mb-3 d-grid gap-2">
+        <a href="/">
+            <button type="button" class="btn btn-primary">Home page</button>
+        </a>
+        <a href="/log_In">
+            <button type="button" class="btn btn-primary">Log in</button>
+        </a>
+    </div>
+
+</form>
+{% endblock %}

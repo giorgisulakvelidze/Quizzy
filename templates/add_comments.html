@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="post-wrapper">
+    <div class="post-container">
+        <div class="user-container">
+            <h2>{{ post.title }}</h2>
+            <h2>{{ current_user.name }}</h2>
+        </div>
+        <div class="post-content">
+            <h5 class="post-question">{{ post.question }}</h5>
+            <div class="image-container">
+                <img src="/static/{{ post.file }}" class="post-image" alt="Quiz Image" style="width: 50%"
+                     onclick="toggleImageSize(this)">
+            </div>
+            <h5 class="post-theme">{{ post.theme }}</h5>
+        </div>
+        <div>
+            <form method="POST" action="{{ url_for('render_comment', post_id=post.id) }}">
+                {{ form.hidden_tag() }}
+                {{ form.comment(class='comment-input', placeholder='დაწერეთ პასუხები აქ...') }}
+                {{ form.submit(class='action-button submit-comment-button') }}
+            </form>
+        </div>
+        <div class="accordion accordion-flush mt-4" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseComments" aria-expanded="false"
+                            aria-controls="flush-collapseComments">
+                        კომენტარების ნახვა
+                    </button>
+                </h2>
+                <div id="flush-collapseComments" class="accordion-collapse collapse"
+                     data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        {% if comments %}
+                        <div class="accordion" id="commentAccordion">
+                            {% for comment in comments %}
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading{{ loop.index }}">
+                                    {% if post.user_id == comment.user_id %}
+                                    <button class="accordion-button collapsed bg-success" type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#collapse{{ loop.index }}" aria-expanded="false"
+                                            aria-controls="collapse{{ loop.index }}">
+                                        User: {{ comment.user_id }} პასუხი აქ არის
+                                    </button>
+                                    {% else %}
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse{{ loop.index }}" aria-expanded="false"
+                                            aria-controls="collapse{{ loop.index }}">
+                                        User: {{ comment.user_id }}
+                                    </button>
+                                    {% endif %}
+                                </h2>
+                                <div id="collapse{{ loop.index }}" class="accordion-collapse collapse"
+                                     aria-labelledby="heading{{ loop.index }}" data-bs-parent="#commentAccordion">
+                                    <div class="accordion-body">
+                                        {{ comment.user_comment }}
+                                    </div>
+                                    {% if current_user.role == 'admin' or current_user.id == post['user_id'] %}
+                                    <div class="accordion-body">
+                                        <form method="POST" action="/delete_comment/{{ comment['id'] }}">
+                                            <button type="submit" class="btn btn-danger">Delete Comment</button>
+                                        </form>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        <p>No comments yet.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function toggleImageSize(image) {
+    image.classList.toggle('enlarged');
+}
+</script>
+{% endblock %}

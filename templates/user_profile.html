@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="admin-info">
+    <p>Username: {{ user['name'] }}</p>
+    <p>Email: {{ user['mail'] }}</p>
+</div>
+
+
+<div class="container-md">
+    <div class="row">
+        <h1>{{ user['name'] }}'s POSTS</h1>
+    </div>
+    <div>
+        {% for post in posts %}
+        <div class="post-wrapper">
+            <div class="user-container">
+                <h2 class="user-name">{{ user['name'] }}</h2>
+            </div>
+            <div class="post-container">
+                <h2>{{ post['title'] }}</h2>
+                <div class="post-content">
+                    <h5 class="post-question">{{ post['question'] }}</h5>
+                    <div class="image-container">
+                        <img src="/static/{{ post['file'] }}" class="post-image" alt="Quiz Image"
+                             onclick="toggleImageSize(this)">
+                    </div>
+                    <h5 class="post-theme">{{ post['theme'] }}</h5>
+                </div>
+                <div class="post-actions">
+                    <a href="/add_comments/{{ post['id'] }}">
+                        <button class="action-button comment-button">Add answer in Comment</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

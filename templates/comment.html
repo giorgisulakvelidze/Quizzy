@@ -1,0 +1,52 @@
+<div class="accordion accordion-flush mt-4" id="accordionFlushExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseComments" aria-expanded="false"
+                    aria-controls="flush-collapseComments">
+                კომენტარების ნახვა
+            </button>
+        </h2>
+        <div id="flush-collapseComments" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                {% if comments %}
+                <div class="accordion" id="commentAccordion">
+                    {% for comment in comments %}
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading{{ loop.index }}">
+                            {% if post['user_id'] == comment['user_id'] %}
+                            <button class="accordion-button collapsed bg-success" type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapse{{ loop.index }}" aria-expanded="false"
+                                    aria-controls="collapse{{ loop.index }}">
+                                User: {{ comment['user_id'] }} პასუხი აქ არის
+                            </button>
+                            {% else %}
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse{{ loop.index }}" aria-expanded="false"
+                                    aria-controls="collapse{{ loop.index }}">
+                                User: {{ comment['user_id'] }}
+                            </button>
+                            {% endif %}
+                        </h2>
+                        <div id="collapse{{ loop.index }}" class="accordion-collapse collapse"
+                             aria-labelledby="heading{{ loop.index }}" data-bs-parent="#commentAccordion">
+                            <div class="accordion-body">
+                                {{ comment['user_comment'] }}
+                            </div>
+                            <div class="accordion-body">
+                                <a href="/delete_comment/{{ comment['id'] }}">
+                                    delete comment
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p>No comments yet.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row my-1">
+    {% for user in registered_users %}
+    <div class="col">
+        <div class="card my-1" style="width: 18rem;">
+        <img src="/static/{{ user['image'] }}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{ user['name'] }}</h5>
+            <p class="card-text">
+                {{ user['mail'] }}
+            </p>
+            {% if current_user.role == "admin" %}
+            <a href="/delete_user/{{ user['id'] }}" class="btn btn-danger">Delete User</a>
+            {% endif %}
+            <a href="/see_profile/{{ user['id'] }}" class="btn btn-info">see profile</a>
+        </div>
+    </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

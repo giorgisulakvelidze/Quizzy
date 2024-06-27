@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="btn-group" style="display: inline_block">
+    <button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        Theme
+    </button>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="/">ყველა</a></li>
+        <li><a class="dropdown-item" href="/filter/{{ 'მათემატიკა' }}">მათემატიკა</a></li>
+        <li><a class="dropdown-item" href="/filter/{{ 'მეცნიერება' }}">მეცნიერება</a></li>
+        <li><a class="dropdown-item" href="/filter/{{ 'სპორტი' }}">სპორტი</a></li>
+        <li><a class="dropdown-item" href="/filter/{{ 'ხელოვნება' }}">ხელოვნება</a></li>
+        <li><a class="dropdown-item" href="/filter/{{ 'მუსიკა' }}">მუსიკა</a></li>
+        <li><a class="dropdown-item" href="/filter/{{ 'გეოგრაფია' }}">გეოგრაფია</a></li>
+        <li><a class="dropdown-item" href="/filter/{{ 'ზოგადი' }}">ზოგადი</a></li>
+        <li><a class="dropdown-item" href="/filter/{{ 'ისტორია' }}">ისტორია</a></li>
+        <li><a class="dropdown-item" href="/filter/{{ 'სხვა' }}">სხვა</a></li>
+    </ul>
+</div>
+
+<div class="container-md">
+    <div class="row">
+        <h1>POSTS</h1>
+    </div>
+    <div>
+        {% for post, user in uploaded_posts %}
+        <div class="post-wrapper">
+            <div class="user-container">
+                <div class="profile-image">
+                    <img src="/static/{{ user['image'] }}" alt="Profile Image">
+                </div>
+                <a href="/see_profile/{{ user['id'] }}">
+                    <h2 class="user-name">{{ user.name }}</h2>
+                </a>
+
+            </div>
+
+            <div class="post-container">
+                <h2>{{ post['title'] }}</h2>
+                <div class="post-content">
+                    <h5 class="post-question">{{ post['question'] }}</h5>
+                    <div class="image-container">
+                        <img src="/static/{{ post['file'] }}" class="post-image" alt="Quiz Image"
+                             onclick="toggleImageSize(this)">
+                    </div>
+                    <h5 class="post-theme">{{ post['theme'] }}</h5>
+                </div>
+                <div class="post-actions">
+                    {% if current_user.is_authenticated %}
+                    <a href="/add_comments/{{ post['id'] }}">
+                        <button class="action-button comment-button">Comment</button>
+                    </a>
+                    {% endif %}
+                    {% if current_user.id == post['user_id'] %}
+                    <a href="/edit_post/{{ post['id'] }}">
+                        <button class="action-button redact-button">Edit Post</button>
+                    </a>
+                    <a href="/delete_post/{{ post['id'] }}">
+                        <button class="action-button delete-button">Delete Post</button>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

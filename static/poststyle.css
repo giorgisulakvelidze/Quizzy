@@ -1,0 +1,212 @@
+/* Main container styling */
+.post-wrapper {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* User container */
+.user-container {
+    margin-bottom: 10px;
+}
+
+.user-name {
+    font-size: 1.5em;
+    color: #333;
+}
+
+/* Post content */
+.post-container {
+    padding: 15px;
+    border-top: 1px solid #eee;
+}
+
+.post-content {
+    margin-bottom: 15px;
+}
+
+.post-question {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.post-theme {
+    font-size: 1em;
+    color: #666;
+}
+
+.image-container {
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.post-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Enlarged state */
+.post-image.enlarged {
+    transform: scale(1.6);
+    z-index: 1000;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90%; /* Adjust as necessary */
+    max-height: 90%; /* Adjust as necessary */
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Post actions */
+.post-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.action-button {
+    padding: 8px 16px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.action-button:hover {
+    filter: brightness(90%);
+}
+
+/* Button Colors */
+.comment-button {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.comment-button:hover {
+    background-color: #0056b3;
+}
+
+.redact-button {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.redact-button:hover {
+    background-color: #218838;
+}
+
+.delete-button {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+/* General form styles */
+form {
+    background-color: #e3f2fd; /* Soft Blue */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+/* Form control styles */
+.form-control {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+}
+
+.form-control-file {
+    padding: 10px;
+
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+/* Image styles */
+img {
+    display: block;
+    margin: 0 auto 10px;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Admin info styles */
+.admin-info {
+    background-color: #fff5e6;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.admin-info h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #333;
+}
+
+.admin-info p {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #555;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    form, .admin-info {
+        padding: 15px;
+    }
+
+    .form-control, .btn-primary {
+        font-size: 14px;
+    }
+
+    .admin-info h2 {
+        font-size: 20px;
+    }
+
+    .admin-info p {
+        font-size: 16px;
+    }
+}
+

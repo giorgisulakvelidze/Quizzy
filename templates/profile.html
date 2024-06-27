@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+{% if current_user.role == "admin" %}
+<div class="admin-info">
+    <h2>Admin Information</h2>
+    <p>Username: {{ current_user.name }}</p>
+    <p>Email: {{ current_user.mail }}</p>
+</div>
+{% else %}
+<form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+        {{ form.username(class="form-control", placeholder="Username") }}
+    </div>
+
+    <div class="mb-3">
+        <img src="/static/{{ user['image'] }}" alt="Profile Image"
+             style="margin-bottom: 7px; max-width: 100%; height: auto;">
+        {{ form.file(class="form-control", placeholder="Profile Image") }}
+    </div>
+
+    <div class="mb-3">
+        {{ form.role(class="form-control", placeholder="Role") }}
+    </div>
+
+    <div class="mb-3 d-grid gap-2">
+        {{ form.submit(class="btn btn-primary") }}
+    </div>
+</form>
+{% endif %}
+
+<div class="container-md">
+    <div class="row">
+        <h1>MY POSTS</h1>
+    </div>
+    <div>
+        {% for post in myposts %}
+        <div class="post-wrapper">
+            <div class="user-container">
+                <h2 class="user-name">{{ user['name'] }}</h2>
+            </div>
+            <div class="post-container">
+                <h2>{{ post['title'] }}</h2>
+                <div class="post-content">
+                    <h5 class="post-question">{{ post['question'] }}</h5>
+                    <div class="image-container">
+                        <img src="/static/{{ post['file'] }}" class="post-image" alt="Quiz Image"
+                             onclick="toggleImageSize(this)">
+                    </div>
+                    <h5 class="post-theme">{{ post['theme'] }}</h5>
+                </div>
+                <div class="post-actions">
+                    {% if current_user.is_authenticated %}
+                    <a href="/add_comments/{{ post['id'] }}">
+                        <button class="action-button comment-button">Add answer in Comment</button>
+                    </a>
+                    {% endif %}
+                    {% if current_user.id == post['user_id'] %}
+                    <a href="/edit_post/{{ post['id'] }}">
+                        <button class="action-button redact-button">Edit Post</button>
+                    </a>
+                    <a href="/delete_post/{{ post['id'] }}">
+                        <button class="action-button delete-button">Delete Post</button>
+                    </a>
+                    {% else %}
+                    <a href="#">
+                        <button class="action-button redact-button">Like</button>
+                    </a>
+                    <a href="#">
+                        <button class="action-button delete-button">Delete Post</button>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
