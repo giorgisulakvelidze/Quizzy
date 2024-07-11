@@ -4,7 +4,7 @@ from flask_login import LoginManager
 
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 app.config["SECRET_KEY"] = "asdasdadadasda"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 app.config["UPLOAD_EXTENSIONS"] = [".jpg", ".png"]
